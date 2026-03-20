@@ -1,0 +1,522 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+// ── TOKENS ──────────────────────────────────────────
+$bg: #0e1117;
+$bg-surface: #131920;
+$bg-hover: #161d26;
+$border: rgba(255, 255, 255, 0.07);
+$border-mid: rgba(255, 255, 255, 0.11);
+$text-primary: #e2e8f0;
+$text-secondary: #64748b;
+$text-muted: #3d4f63;
+$accent: #14b8a6; // teal — calm, financial
+$accent-dim: rgba(20, 184, 166, 0.12);
+$accent-border: rgba(20, 184, 166, 0.25);
+$green: #22c55e;
+$green-dim: rgba(34, 197, 94, 0.1);
+$green-border: rgba(34, 197, 94, 0.18);
+$red: #ef4444;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: $bg;
+  color: $text-primary;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+// ── HEADER ──────────────────────────────────────────
+.page-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  background: rgba(14, 17, 23, 0.97);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid $border;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: $accent-dim;
+      border: 1px solid $accent-border;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: $accent;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+      color: $text-primary;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 0.72rem;
+      color: $text-muted;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+  }
+}
+
+// ── SEARCH ──────────────────────────────────────────
+.search-wrap {
+  position: relative;
+  flex: 0 0 320px;
+
+  .search-icon {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-muted;
+    font-size: 1rem;
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.55rem 2.25rem 0.55rem 2rem;
+    background: $bg-surface;
+    border: 1px solid $border-mid;
+    border-radius: 6px;
+    color: $text-primary;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: $text-muted;
+    }
+
+    &:focus {
+      border-color: $accent;
+    }
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: $text-muted;
+    cursor: pointer;
+    font-size: 0.7rem;
+    padding: 2px 4px;
+
+    &:hover {
+      color: $text-secondary;
+    }
+  }
+}
+
+// ── FILTER BAR ──────────────────────────────────────
+.filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid $border;
+  background: rgba(19, 25, 32, 0.6);
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-size: 0.68rem;
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $text-muted;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.year-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.year-pill {
+  padding: 2px 9px;
+  border-radius: 3px;
+  border: 1px solid $border;
+  background: transparent;
+  color: $text-secondary;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.12s;
+
+  &:hover {
+    border-color: $accent-border;
+    color: $accent;
+    background: $accent-dim;
+  }
+
+  &.active {
+    background: $accent-dim;
+    border-color: $accent;
+    color: $accent;
+    font-weight: 500;
+  }
+}
+
+.clear-filters-btn {
+  background: none;
+  border: 1px solid rgba($red, 0.2);
+  color: rgba($red, 0.7);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.12s;
+  flex-shrink: 0;
+
+  &:hover {
+    background: rgba($red, 0.08);
+    border-color: rgba($red, 0.4);
+    color: $red;
+  }
+}
+
+// ── TABLE ────────────────────────────────────────────
+.page {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.table-shell {
+  padding: 0 2rem 4rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  position: sticky;
+  top: 60px;
+  z-index: 50;
+
+  tr {
+    background: $bg;
+    border-bottom: 1px solid $border-mid;
+  }
+
+  th {
+    padding: 0.65rem 1rem;
+    text-align: left;
+    font-size: 0.68rem;
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $text-muted;
+    font-weight: 500;
+    white-space: nowrap;
+    user-select: none;
+
+    &.sortable {
+      cursor: pointer;
+      transition: color 0.12s;
+
+      &:hover {
+        color: $text-secondary;
+      }
+    }
+  }
+}
+
+.sort-icon {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 0.6rem;
+  opacity: 0.5;
+  vertical-align: middle;
+}
+
+// ── ROWS ─────────────────────────────────────────────
+.fund-row {
+  border-bottom: 1px solid $border;
+  transition: background 0.1s;
+
+  &:hover {
+    background: $bg-hover;
+
+    .action-btn {
+      opacity: 1;
+    }
+  }
+
+  td {
+    padding: 0.75rem 1rem;
+    font-size: 0.84rem;
+    vertical-align: middle;
+  }
+}
+
+// ── NAME ─────────────────────────────────────────────
+.name-cell {
+  min-width: 180px;
+}
+
+.name-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: none;
+  border: none;
+  color: $text-primary;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  padding: 0;
+  text-align: left;
+  transition: color 0.12s;
+
+  &:hover {
+    color: $accent;
+  }
+}
+
+.fund-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background: $bg-surface;
+  border: 1px solid $border-mid;
+  color: $text-secondary;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+// ── TAGS ─────────────────────────────────────────────
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 3px;
+  font-size: 0.69rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.strategy-tag {
+  background: $accent-dim;
+  color: $accent;
+  border: 1px solid $accent-border;
+}
+
+.geo-tag {
+  background: $green-dim;
+  color: $green;
+  border: 1px solid $green-border;
+}
+
+// ── OTHER CELLS ───────────────────────────────────────
+.currency-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: $text-secondary;
+  background: $bg-surface;
+  border: 1px solid $border;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.size-cell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  color: $text-primary;
+  font-weight: 500;
+}
+
+.vintage-cell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  color: $text-secondary;
+}
+
+// ── EDIT BTN ──────────────────────────────────────────
+.actions-cell {
+  width: 48px;
+  text-align: center;
+}
+
+.action-btn {
+  opacity: 0;
+  background: $bg-surface;
+  border: 1px solid $border-mid;
+  border-radius: 5px;
+  color: $text-secondary;
+  cursor: pointer;
+  padding: 4px 6px;
+  line-height: 0;
+  transition: all 0.12s;
+
+  &:hover {
+    background: $accent-dim;
+    border-color: $accent-border;
+    color: $accent;
+  }
+}
+
+// ── PAGINATION ────────────────────────────────────────
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding-top: 2rem;
+
+  .page-btn {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid $border;
+    background: $bg-surface;
+    color: $text-secondary;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.12s;
+    padding: 0 6px;
+
+    &:hover:not(:disabled) {
+      border-color: $accent-border;
+      color: $accent;
+      background: $accent-dim;
+    }
+
+    &.active {
+      background: $accent;
+      border-color: $accent;
+      color: #0e1117;
+      font-weight: 600;
+    }
+
+    &:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
+
+    &.nav {
+      font-size: 0.9rem;
+    }
+  }
+
+  .page-info {
+    margin-left: 0.75rem;
+    font-size: 0.7rem;
+    font-family: 'IBM Plex Mono', monospace;
+    color: $text-muted;
+  }
+}
+
+// ── EMPTY STATE ───────────────────────────────────────
+.empty-state {
+  text-align: center;
+  padding: 5rem 2rem;
+  color: $text-muted;
+
+  .empty-icon {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+  }
+
+  p {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    color: $text-secondary;
+  }
+
+  button {
+    background: $accent-dim;
+    border: 1px solid $accent-border;
+    color: $accent;
+    padding: 0.45rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.84rem;
+    transition: background 0.12s;
+
+    &:hover {
+      background: rgba(20, 184, 166, 0.2);
+    }
+  }
+}
+
+// ── SKELETON ──────────────────────────────────────────
+.skeleton-wrap {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeleton-row {
+  height: 48px;
+  border-radius: 4px;
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.02) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
