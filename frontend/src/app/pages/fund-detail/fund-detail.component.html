@@ -1,0 +1,98 @@
+<div class="detail-page" *ngIf="!loading && fund">
+
+  <nav class="top-nav">
+    <button class="back-btn" (click)="goBack()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 5l-7 7 7 7" />
+      </svg>
+      All Funds
+    </button>
+    <button class="edit-nav-btn" (click)="goToEdit()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+      </svg>
+      Edit
+    </button>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="fund-monogram">{{ fund.name.slice(0,3) }}</div>
+        <div>
+          <h1 class="fund-title">{{ fund.name }}</h1>
+          <p class="fund-desc">{{ fund.description }}</p>
+        </div>
+      </div>
+      <div class="fund-size-block">
+        <span class="size-label">Fund Size</span>
+        <span class="size-number">{{ formatSize(fund.fundSize) }}</span>
+        <span class="size-currency">{{ fund.currency }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-grid">
+
+    <!-- Left column -->
+    <div class="col">
+
+      <div class="card">
+        <h3 class="card-title">Overview</h3>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-label">Vintage Year</span>
+            <span class="stat-value mono">{{ fund.vintage }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Currency</span>
+            <span class="stat-value mono">{{ fund.currency }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">AUM</span>
+            <span class="stat-value mono">{{ formatSize(fund.fundSize) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Strategies</h3>
+        <div class="tag-grid">
+          <span class="detail-tag strategy" *ngFor="let s of fund.strategies">{{ s }}</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Geographies</h3>
+        <div class="tag-grid">
+          <span class="detail-tag geo" *ngFor="let g of fund.geographies">
+            {{ g }}
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right column -->
+    <div class="col">
+
+      <div class="managers-list">
+        <div class="manager-row" *ngFor="let m of fund.managers">
+          <div class="manager-avatar">{{ getInitials(m) }}</div>
+          <div class="manager-info">
+            <span class="manager-name">{{ m }}</span>
+            <span class="manager-role">Fund Manager</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="loading-shell" *ngIf="loading">
+  <div class="loader"></div>
+</div>

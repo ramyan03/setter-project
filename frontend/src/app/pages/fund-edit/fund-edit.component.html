@@ -1,0 +1,68 @@
+<div class="edit-page" *ngIf="!loading && fund">
+  <div class="top-bar">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+    <div class="save-indicator" [ngClass]="saveStatus">
+      <span *ngIf="saveStatus === 'saving'">⏳ Saving...</span>
+      <span *ngIf="saveStatus === 'saved'">✅ Saved</span>
+      <span *ngIf="saveStatus === 'error'">❌ Error saving</span>
+    </div>
+    <button class="delete-btn" (click)="confirmDelete()">🗑 Delete Fund</button>
+  </div>
+
+  <div class="edit-card">
+    <h2>Edit Fund</h2>
+
+    <div class="form-group">
+      <label>Fund Name</label>
+      <input [(ngModel)]="fund.name" (blur)="autoSave()" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Fund Size (M)</label>
+        <input type="number" [(ngModel)]="fund.fundSize" (blur)="autoSave()" />
+      </div>
+      <div class="form-group">
+        <label>Currency</label>
+        <input [(ngModel)]="fund.currency" (blur)="autoSave()" />
+      </div>
+      <div class="form-group">
+        <label>Vintage Year</label>
+        <input type="number" [(ngModel)]="fund.vintage" (blur)="autoSave()" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea [(ngModel)]="fund.description" (blur)="autoSave()" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Strategies <span class="hint">(comma-separated)</span></label>
+      <input [(ngModel)]="strategiesStr" (blur)="autoSave()" />
+    </div>
+
+    <div class="form-group">
+      <label>Geographies <span class="hint">(comma-separated)</span></label>
+      <input [(ngModel)]="geographiesStr" (blur)="autoSave()" />
+    </div>
+
+    <div class="form-group">
+      <label>Managers <span class="hint">(comma-separated)</span></label>
+      <input [(ngModel)]="managersStr" (blur)="autoSave()" />
+    </div>
+  </div>
+
+  <!-- Delete confirmation modal -->
+  <div class="modal-overlay" *ngIf="showDeleteConfirm">
+    <div class="modal">
+      <h3>Delete {{ fund.name }}?</h3>
+      <p>This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="cancelDelete()">Cancel</button>
+        <button class="btn-delete" (click)="deleteFund()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="loading" class="loading">Loading...</div>
